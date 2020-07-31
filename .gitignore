@@ -4,3 +4,4 @@ plots/*
 .vscode/*
 temp/*
 preprocess/huff/huffpost/*
+preprocess/fewrel/data/*
