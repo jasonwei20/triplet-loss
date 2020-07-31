@@ -48,6 +48,7 @@ class mlp_ap_config(NamedTuple):
     learning_rate: float = 1e-3
     weight_decay: float = 0.05
     decay_gamma: float = 0.95
+    model: str = None #"LR"
 
     # training params
     train_nc: int = None
