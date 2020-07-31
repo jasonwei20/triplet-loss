@@ -4,5 +4,5 @@
     "test_path": "data/sst2/test.txt",
     "num_output_classes": 2,
     "train_nc": 10,
-    "total_updates": 300
+    "total_updates": 3000
 }

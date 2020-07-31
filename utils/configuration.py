@@ -24,6 +24,10 @@ class triplet_ap_config(NamedTuple):
     total_updates: int = 10000
     eval_interval: int = 100
 
+    # augmentation params
+    n_aug: int = None
+    aug_type: str = None #sr, swap, bt
+
     @classmethod
     def from_json(cls, file_path):
         return cls(**json.load(open(file_path, 'r')))

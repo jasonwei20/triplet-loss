@@ -62,14 +62,8 @@ def train_eval_model(
     cfg
 ):
 
-    # load data
-    train_sentence_to_label, train_label_to_sentences = dataloader.get_sentence_to_label(cfg.train_path)
-    test_sentence_to_label, _ = dataloader.get_sentence_to_label(cfg.test_path)
-
-    train_sentence_to_encoding = bert_avgpool.get_encoding_dict(train_sentence_to_label, cfg.train_path)
-    test_sentence_to_encoding = bert_avgpool.get_encoding_dict(test_sentence_to_label, cfg.test_path)
-    
-    train_label_to_sentences = dataloader.get_train_subset(train_label_to_sentences, cfg.train_nc)
+    #load data
+    train_sentence_to_label, train_label_to_sentences, test_sentence_to_label, train_sentence_to_encoding, test_sentence_to_encoding = dataloader.load_triplet_data(cfg)
 
     # initialize model
     model, loss_fn, optimizer, device = initialize_model(cfg)
@@ -80,10 +74,7 @@ def train_eval_model(
 
     for update_num in iter_bar:
 
-        anchor, pos, neg = dataloader.generate_triplet_batch(train_label_to_sentences, train_sentence_to_encoding)
-        anchor = anchor.to(device)
-        pos = pos.to(device)
-        neg = neg.to(device)
+        anchor, pos, neg = dataloader.generate_triplet_batch(train_label_to_sentences, train_sentence_to_encoding, device)
 
         model.train()
         model.zero_grad()
@@ -111,9 +102,9 @@ def train_eval_model(
                             + f"val_acc={float(val_acc):.4f}, "
                             )
             iter_bar.set_description(iter_bar_str)
-            update_num_list.append(update_num)
-            val_acc_list.append(val_acc)
+            update_num_list.append(update_num); val_acc_list.append(val_acc); train_loss_list.append(train_loss)
 
     Path(f"plots/{cfg.exp_id}").mkdir(parents=True, exist_ok=True)
+    visualization.plot_jasons_lineplot(update_num_list, train_loss_list, 'updates', 'training loss', f"{cfg.exp_id} n_train_c={cfg.train_nc} max_val_acc={max(val_acc_list):.3f}", f"plots/{cfg.exp_id}/train_loss.png")    
     visualization.plot_jasons_lineplot(update_num_list, val_acc_list, 'updates', 'validation accuracy', f"{cfg.exp_id} n_train_c={cfg.train_nc} max_val_acc={max(val_acc_list):.3f}", f"plots/{cfg.exp_id}/val_acc.png")    
     # torch.save(model.state_dict(), 'triplet/models/baseline_covid_weights.pt')

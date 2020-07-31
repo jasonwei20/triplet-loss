@@ -1,0 +1,8 @@
+{
+    "exp_id": "triplet_vanilla_trec_nc10",
+    "train_path": "data/trec/train.txt",
+    "test_path": "data/trec/test.txt",
+    "num_output_classes": 6,
+    "train_nc": 10,
+    "total_updates": 3000
+}

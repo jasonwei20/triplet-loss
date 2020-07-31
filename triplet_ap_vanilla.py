@@ -4,6 +4,8 @@ if __name__ == "__main__":
 
     cfg_json_list = [
         "config/triplet_ap/vanilla/sst2_nc10.json",
+        "config/triplet_ap/vanilla/trec_nc10.json",
+        "config/triplet_ap/vanilla/imdb_nc10.json",
     ]
 
     for cfg_json in cfg_json_list:
