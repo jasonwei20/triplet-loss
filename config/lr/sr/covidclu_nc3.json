@@ -1,0 +1,12 @@
+{
+    "exp_id": "lr_covidclu_sr_nc3",
+    "train_path": "data/covidclu/train.txt",
+    "test_path": "data/covidclu/test.txt",
+    "num_output_classes": 87,
+    "train_nc": 3,
+    "num_epochs": 150,
+    "minibatch_size": 200,
+    "model": "LR",
+    "n_aug": 4,
+    "aug_type": "sr"
+}
