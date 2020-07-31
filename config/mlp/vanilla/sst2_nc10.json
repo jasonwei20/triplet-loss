@@ -1,0 +1,9 @@
+{
+    "exp_id": "mlp_sst2_vanilla_nc10",
+    "train_path": "data/sst2/train.txt",
+    "test_path": "data/sst2/test.txt",
+    "num_output_classes": 2,
+    "train_nc": 10,
+    "num_epochs": 150,
+    "minibatch_size": 20
+}

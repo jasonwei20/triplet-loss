@@ -1,0 +1,9 @@
+{
+    "exp_id": "mlp_covidcat_vanilla_nc10",
+    "train_path": "data/covidcat/train.txt",
+    "test_path": "data/covidcat/test.txt",
+    "num_output_classes": 15,
+    "train_nc": 10,
+    "num_epochs": 150,
+    "minibatch_size": 80
+}

@@ -1,0 +1,9 @@
+{
+    "exp_id": "mlp_trec_vanilla_nc10",
+    "train_path": "data/trec/train.txt",
+    "test_path": "data/trec/test.txt",
+    "num_output_classes": 6,
+    "train_nc": 10,
+    "num_epochs": 150,
+    "minibatch_size": 20
+}
