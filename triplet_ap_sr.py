@@ -4,7 +4,7 @@ if __name__ == "__main__":
 
     cfg_json_list = [
         "config/triplet_ap/sr/covidcat_nc10.json",
-        "config/triplet_ap/sr/covidclus_nc3.json",
+        "config/triplet_ap/sr/covidclu_nc3.json",
         "config/triplet_ap/sr/trec_nc10.json",
         "config/triplet_ap/sr/sst2_nc10.json",
     ]
