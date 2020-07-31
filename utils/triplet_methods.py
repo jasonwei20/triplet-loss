@@ -28,6 +28,7 @@ def eval_model(
     test_sentence_to_label,
     test_sentence_to_encoding,
 ):
+    model.eval()
 
     def get_sentence_embedding(model, sentence_to_encoding, sentence):
         return model.get_embedding(torch.tensor(sentence_to_encoding[sentence]).to(device)).detach().cpu().numpy()
@@ -63,7 +64,7 @@ def train_eval_model(
 ):
 
     #load data
-    train_sentence_to_label, train_label_to_sentences, test_sentence_to_label, train_sentence_to_encoding, test_sentence_to_encoding = dataloader.load_triplet_data(cfg)
+    train_sentence_to_label, train_label_to_sentences, test_sentence_to_label, train_sentence_to_encoding, test_sentence_to_encoding = dataloader.load_ap_data(cfg)
 
     # initialize model
     model, loss_fn, optimizer, device = initialize_model(cfg)

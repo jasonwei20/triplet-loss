@@ -3,11 +3,10 @@ from utils import common, configuration, triplet_methods
 if __name__ == "__main__":
 
     cfg_json_list = [
-        "config/triplet_ap/vanilla/covidclu_nc3.json",
-        "config/triplet_ap/vanilla/covidcat_nc10.json",
-        "config/triplet_ap/vanilla/sst2_nc10.json",
-        "config/triplet_ap/vanilla/trec_nc10.json",
-        "config/triplet_ap/vanilla/imdb_nc10.json",
+        "config/triplet_ap/sr/covidcat_nc10.json",
+        "config/triplet_ap/sr/covidclus_nc3.json",
+        "config/triplet_ap/sr/trec_nc10.json",
+        "config/triplet_ap/sr/sst2_nc10.json",
     ]
 
     for cfg_json in cfg_json_list:

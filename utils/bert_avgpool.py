@@ -11,9 +11,17 @@ pretrained_weights = 'bert-base-uncased'
 tokenizer = tokenizer_class.from_pretrained(pretrained_weights)
 model = model_class.from_pretrained(pretrained_weights)
 
-def get_encoding_dict(sentence_to_labels, original_file_path):
+def get_encodings_path(original_file_path, aug_type):
     
-    encodings_path = Path(original_file_path).parent.joinpath(original_file_path.split('/')[-1].split('.')[0] + '_encodings.pkl')
+    if aug_type in {'bt', 'sr', 'swap'}:
+        encodings_path = Path(original_file_path).parent.joinpath(original_file_path.split('/')[-1].split('.')[0] + f"_encodings_{aug_type}.pkl")
+    else:
+        encodings_path = Path(original_file_path).parent.joinpath(original_file_path.split('/')[-1].split('.')[0] + '_encodings.pkl')
+    return encodings_path
+
+def get_encoding_dict(sentence_to_labels, original_file_path, aug_type):
+
+    encodings_path = get_encodings_path(original_file_path, aug_type)
 
     if not encodings_path.exists():
 

@@ -1,5 +1,5 @@
 {
-    "exp_id": "triplet_vanilla_imdb_nc10",
+    "exp_id": "triplet_imdb_vanilla_nc10",
     "train_path": "data/imdb/train.txt",
     "test_path": "data/imdb/test.txt",
     "num_output_classes": 2,
