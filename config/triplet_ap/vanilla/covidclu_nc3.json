@@ -4,5 +4,5 @@
     "test_path": "data/covidclu/test.txt",
     "num_output_classes": 87,
     "train_nc": 3,
-    "total_updates": 10000
+    "total_updates": 15000
 }
