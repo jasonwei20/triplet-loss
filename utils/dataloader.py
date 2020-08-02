@@ -66,7 +66,7 @@ def generate_triplet_batch(label_to_sentences, train_sentence_to_embedding, devi
 
 def load_ap_data(cfg):
 
-    if cfg.aug_type in {'sr', 'swap', 'bt'}:
+    if cfg.aug_type in {'sr', 'eda'}:
         return load_ap_data_aug(cfg)
     else:
         return load_ap_data_no_aug(cfg)
