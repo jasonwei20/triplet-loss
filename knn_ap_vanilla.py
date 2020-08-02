@@ -3,6 +3,8 @@ from utils import common, configuration, knn_methods
 if __name__ == "__main__":
 
     cfg_json_list = [ #uses same configs as triplet_ap
+        "config/triplet_ap/vanilla/fewrel_nc10.json",
+        "config/triplet_ap/vanilla/huff_nc10.json",
         "config/triplet_ap/vanilla/covidclu_nc3.json",
         "config/triplet_ap/vanilla/covidcat_nc10.json",
         "config/triplet_ap/vanilla/sst2_nc10.json",
