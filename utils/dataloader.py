@@ -76,8 +76,8 @@ def load_ap_data_no_aug(cfg):
     train_sentence_to_label, train_label_to_sentences = get_sentence_to_label(cfg.train_path)
     test_sentence_to_label, _ = get_sentence_to_label(cfg.test_path)
 
-    train_sentence_to_encoding = bert_avgpool.get_encoding_dict(train_sentence_to_label, cfg.train_path, cfg.aug_type)
-    test_sentence_to_encoding = bert_avgpool.get_encoding_dict(test_sentence_to_label, cfg.test_path, None)
+    train_sentence_to_encoding = bert_avgpool.get_encoding_dict(train_sentence_to_label, cfg.train_path, cfg.aug_type, None)
+    test_sentence_to_encoding = bert_avgpool.get_encoding_dict(test_sentence_to_label, cfg.test_path, None, None)
     test_sentence_to_label = get_test_subset(test_sentence_to_label, cfg.val_subset)
 
     if cfg.train_nc:
@@ -113,8 +113,8 @@ def load_ap_data_aug(cfg):
 
     train_sentence_aug_to_label, train_label_to_sentences_aug = generate_aug_train_sentences(train_sentence_to_label, train_label_to_sentences, cfg)
 
-    train_sentence_to_encoding = bert_avgpool.get_encoding_dict(train_sentence_aug_to_label, cfg.train_path, cfg.aug_type)
-    test_sentence_to_encoding = bert_avgpool.get_encoding_dict(test_sentence_to_label, cfg.test_path, None)
+    train_sentence_to_encoding = bert_avgpool.get_encoding_dict(train_sentence_aug_to_label, cfg.train_path, cfg.aug_type, cfg.alpha)
+    test_sentence_to_encoding = bert_avgpool.get_encoding_dict(test_sentence_to_label, cfg.test_path, None, None)
     test_sentence_to_label = get_test_subset(test_sentence_to_label, cfg.val_subset)
 
     if cfg.train_nc:

@@ -1,0 +1,12 @@
+{
+    "exp_id": "triplet_huff_sr_alpha_nc10_a02",
+    "train_path": "data/huff/train.txt",
+    "test_path": "data/huff/test.txt",
+    "num_output_classes": 41,
+    "train_nc": 10,
+    "total_updates": 15000,
+    "n_aug": 4,
+    "aug_type": "sr",
+    "alpha": 0.2,
+    "eval_interval": 300
+}
