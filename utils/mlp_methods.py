@@ -7,7 +7,7 @@ from pathlib import Path
 from sklearn.metrics import accuracy_score
 from sklearn.utils import shuffle
 
-from utils import dataloader, bert_avgpool, triplet_models, visualization
+from utils import dataloader, mlp_dataloader, bert_avgpool, triplet_models, visualization
 
 class LR(nn.Module):
 
@@ -41,8 +41,8 @@ def train_mlp(
 
     #load data
     train_sentence_to_label, train_label_to_sentences, test_sentence_to_label, train_sentence_to_encoding, test_sentence_to_encoding = dataloader.load_ap_data(cfg)
-    train_x, train_y = dataloader.get_mlp_train_x_y(cfg, train_label_to_sentences, train_sentence_to_encoding)
-    test_x, test_y = dataloader.get_mlp_test_x_y(cfg, test_sentence_to_label, test_sentence_to_encoding)
+    train_x, train_y = mlp_dataloader.get_mlp_train_x_y(cfg, train_label_to_sentences, train_sentence_to_encoding)
+    test_x, test_y = mlp_dataloader.get_mlp_test_x_y(cfg, test_sentence_to_label, test_sentence_to_encoding)
 
     if cfg.model == "LR":
         model = LR(num_classes=cfg.num_output_classes)

@@ -146,7 +146,7 @@ def get_sr_sentence(sentence, alpha=0.1):
 
     return augmented_sentence
 
-def get_sr_data_dict(pkl_path, train_path, n_aug):
+def get_sr_data_dict(pkl_path, train_path, n_aug, alpha):
     
     if not pkl_path.exists():
         
@@ -156,17 +156,17 @@ def get_sr_data_dict(pkl_path, train_path, n_aug):
 
         sentence_to_augmented_sentences = {}
         for sentence in tqdm(sentences):
-            sr_sentences = [get_sr_sentence(sentence) for _ in range(n_aug)]
+            sr_sentences = [get_sr_sentence(sentence, alpha) for _ in range(n_aug)]
             sentence_to_augmented_sentences[sentence] = sr_sentences
 
         common.save_pickle(pkl_path, sentence_to_augmented_sentences)
     
     return common.load_pickle(pkl_path)
 
-def get_synonym_replacement_sentences(cfg):
+def get_synonym_replacement_sentences(train_path, n_aug, alpha):
 
-    pkl_path = Path(cfg.train_path).parent.joinpath(f"train_aug_sr_data.pkl")
-    sentence_to_aug_sentences = get_sr_data_dict(pkl_path, cfg.train_path, cfg.n_aug)
+    pkl_path = Path(train_path).parent.joinpath(f"train_aug_sr_alpha{alpha:.2f}_data.pkl")
+    sentence_to_aug_sentences = get_sr_data_dict(pkl_path, train_path, n_aug, alpha)
     return sentence_to_aug_sentences
 
 ########################################################################
@@ -205,9 +205,9 @@ def get_synonym_replacement_sentences(cfg):
 # master augment method that takes in cfg
 ########################################################################
 
-def get_augmented_sentences(cfg):
+def get_augmented_sentences(aug_type, train_path, n_aug, alpha):
 
-    if cfg.aug_type == "sr":
-        return get_synonym_replacement_sentences(cfg)
-    elif cfg.aug_type == "bt":
-        return get_backtrans_sentences(cfg)
+    if aug_type == "sr":
+        return get_synonym_replacement_sentences(train_path, n_aug, alpha)
+    # elif cfg.aug_type == "bt":
+    #     return get_backtrans_sentences(cfg)

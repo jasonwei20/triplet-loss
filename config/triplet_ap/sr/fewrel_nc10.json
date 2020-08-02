@@ -6,5 +6,6 @@
     "train_nc": 10,
     "total_updates": 15000,
     "n_aug": 4,
-    "aug_type": "sr"
+    "aug_type": "sr",
+    "eval_interval": 300
 }

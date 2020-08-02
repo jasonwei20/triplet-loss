@@ -5,7 +5,7 @@ import torch
 from utils import augmentation, bert_avgpool
 
 #######################################
-############ triplet stuff ############
+############ general stuff ############
 #######################################
 
 def get_sentence_to_label(csv_file):
@@ -30,6 +30,16 @@ def get_sentence_to_label(csv_file):
 
 def get_train_subset(train_label_to_sentences, nc):
     return {train_label: random.sample(sentences, nc) for train_label, sentences in train_label_to_sentences.items()}
+
+def get_test_subset(test_sentence_to_label, val_subset):
+    if val_subset < len(test_sentence_to_label):
+        return {test_sentence: label for test_sentence, label in random.sample(test_sentence_to_label.items(), val_subset)}
+    else:
+        return test_sentence_to_label
+
+#######################################
+############ triplet stuff ############
+#######################################
 
 def generate_triplet(label_to_sentences):
 
@@ -68,6 +78,7 @@ def load_ap_data_no_aug(cfg):
 
     train_sentence_to_encoding = bert_avgpool.get_encoding_dict(train_sentence_to_label, cfg.train_path, cfg.aug_type)
     test_sentence_to_encoding = bert_avgpool.get_encoding_dict(test_sentence_to_label, cfg.test_path, None)
+    test_sentence_to_label = get_test_subset(test_sentence_to_label, cfg.val_subset)
 
     if cfg.train_nc:
         train_label_to_sentences = get_train_subset(train_label_to_sentences, cfg.train_nc)
@@ -76,7 +87,7 @@ def load_ap_data_no_aug(cfg):
 
 def generate_aug_train_sentences(train_sentence_to_label, train_label_to_sentences, cfg):
 
-    sentence_to_aug_sentences = augmentation.get_augmented_sentences(cfg)
+    sentence_to_aug_sentences = augmentation.get_augmented_sentences(cfg.aug_type, cfg.train_path, cfg.n_aug, cfg.alpha)
 
     train_sentence_aug_to_label = {}; train_label_to_sentences_aug = {label: [] for label in train_label_to_sentences}
 
@@ -104,40 +115,10 @@ def load_ap_data_aug(cfg):
 
     train_sentence_to_encoding = bert_avgpool.get_encoding_dict(train_sentence_aug_to_label, cfg.train_path, cfg.aug_type)
     test_sentence_to_encoding = bert_avgpool.get_encoding_dict(test_sentence_to_label, cfg.test_path, None)
+    test_sentence_to_label = get_test_subset(test_sentence_to_label, cfg.val_subset)
 
     if cfg.train_nc:
         train_label_to_sentences = get_train_subset(train_label_to_sentences, cfg.train_nc)
         _, train_label_to_sentences_aug = generate_aug_train_sentences(train_sentence_to_label, train_label_to_sentences, cfg)
 
     return train_sentence_aug_to_label, train_label_to_sentences_aug, test_sentence_to_label, train_sentence_to_encoding, test_sentence_to_encoding
-
-#######################################
-############## mlp stuff ##############
-#######################################
-
-def get_mlp_train_x_y(cfg, train_label_to_sentences, train_sentence_to_encoding):
-
-    num_samples = len(list(itertools.chain.from_iterable(train_label_to_sentences.values())))
-
-    train_x = np.zeros((num_samples, cfg.encoding_size))
-    train_y = np.zeros((num_samples, ))
-
-    i = 0
-    for train_label, sentences in train_label_to_sentences.items():
-        for sentence in sentences:
-            train_x[i, :] = train_sentence_to_encoding[sentence]
-            train_y[i] = train_label
-            i += 1
-
-    return train_x, train_y
-
-def get_mlp_test_x_y(cfg, test_sentence_to_label, test_sentence_to_encoding):
-
-    test_x = np.zeros((len(test_sentence_to_label), cfg.encoding_size))
-    test_y = np.zeros((len(test_sentence_to_label), ))
-    
-    for i, (test_sentence, label) in enumerate(test_sentence_to_label.items()):
-        test_x[i, :] = test_sentence_to_encoding[test_sentence]
-        test_y[i] = label
-    
-    return test_x, test_y
