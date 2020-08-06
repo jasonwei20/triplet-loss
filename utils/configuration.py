@@ -26,7 +26,7 @@ class triplet_ap_config(NamedTuple):
 
     # augmentation params
     n_aug: int = None
-    aug_type: str = None #sr, swap, bt
+    aug_type: str = None #sr, eda
     alpha: int = 0.1
 
     @classmethod
@@ -58,10 +58,11 @@ class triplet_ap_cl_config(NamedTuple):
 
     # augmentation params
     n_aug: int = None
-    aug_type: str = None #sr, swap, bt
+    aug_type: str = None #sr, eda
+    alpha: int = 0.1
 
     # cl params
-    cl_type: str = "simple_1"
+    first_stage_updates: int = None
 
     @classmethod
     def from_json(cls, file_path):
@@ -94,7 +95,7 @@ class mlp_ap_config(NamedTuple):
 
     # augmentation params
     n_aug: int = None
-    aug_type: str = None #sr, swap, bt
+    aug_type: str = None #sr, eda
 
     @classmethod
     def from_json(cls, file_path):
