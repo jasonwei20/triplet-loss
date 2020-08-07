@@ -1,0 +1,13 @@
+{
+    "exp_id": "triplet_covidcat_cl_twostep_nc10_a03",
+    "train_path": "data/covidcat/train.txt",
+    "test_path": "data/covidcat/test.txt",
+    "num_output_classes": 15,
+    "train_nc": 10,
+    "total_updates": 15000,
+    "n_aug": 4,
+    "aug_type": "eda",
+    "alpha": 0.3,
+    "eval_interval": 200,
+    "first_stage_updates": 4000
+}
