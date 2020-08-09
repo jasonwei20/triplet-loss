@@ -1,0 +1,12 @@
+{
+    "exp_id": "triplet_amzn_eda_alpha_nc3_a005",
+    "train_path": "data/amzn/train.txt",
+    "test_path": "data/amzn/test.txt",
+    "num_output_classes": 318,
+    "train_nc": 3,
+    "total_updates": 25000,
+    "n_aug": 4,
+    "aug_type": "eda",
+    "alpha": 0.05,
+    "eval_interval": 200
+}

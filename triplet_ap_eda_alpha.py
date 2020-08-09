@@ -36,9 +36,15 @@ if __name__ == "__main__":
         # "config/triplet_ap/eda_alpha/fewrel_nc10_a005.json",
         # "config/triplet_ap/eda_alpha/fewrel_nc10_a01.json",
         # "config/triplet_ap/eda_alpha/fewrel_nc10_a02.json",
-        "config/triplet_ap/eda_alpha/fewrel_nc10_a03.json",
-        "config/triplet_ap/eda_alpha/fewrel_nc10_a04.json",
-        "config/triplet_ap/eda_alpha/fewrel_nc10_a05.json",
+        # "config/triplet_ap/eda_alpha/fewrel_nc10_a03.json",
+        # "config/triplet_ap/eda_alpha/fewrel_nc10_a04.json",
+        # "config/triplet_ap/eda_alpha/fewrel_nc10_a05.json",
+        # "config/triplet_ap/eda_alpha/amzn_nc3_a005.json",
+        # "config/triplet_ap/eda_alpha/amzn_nc3_a01.json",
+        # "config/triplet_ap/eda_alpha/amzn_nc3_a02.json",
+        # "config/triplet_ap/eda_alpha/amzn_nc3_a03.json",
+        # "config/triplet_ap/eda_alpha/amzn_nc3_a04.json",
+        # "config/triplet_ap/eda_alpha/amzn_nc3_a05.json",
     ]
 
     for cfg_json in cfg_json_list:
