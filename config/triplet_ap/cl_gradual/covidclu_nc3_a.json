@@ -1,0 +1,21 @@
+{
+    "exp_id": "triplet_covidclu_cl_gradual_nc3_a",
+    "train_path": "data/covidclu/train.txt",
+    "test_path": "data/covidclu/test.txt",
+    "num_output_classes": 87,
+    "train_nc": 3,
+    "total_updates": 19000,
+    "n_aug": 4,
+    "aug_type": "eda",
+    "second_stage_alpha": 0.1,
+    "third_stage_alpha": 0.2,
+    "fourth_stage_alpha": 0.3,
+    "fifth_stage_alpha": 0.4,
+    "sixth_stage_alpha": 0.5,
+    "eval_interval": 200,
+    "first_stage_updates": 4000,
+    "second_stage_updates": 7000,
+    "third_stage_updates": 10000,
+    "fourth_stage_updates": 13000,
+    "fifth_stage_updates": 16000
+}

@@ -28,10 +28,12 @@ def get_sentence_to_label(csv_file):
 
     return sentence_to_label, label_to_sentences
 
-def get_train_subset(train_label_to_sentences, nc):
+def get_train_subset(train_label_to_sentences, nc, seed_num):
+    random.seed(seed_num)
     return {train_label: random.sample(sentences, nc) for train_label, sentences in train_label_to_sentences.items()}
 
-def get_test_subset(test_sentence_to_label, val_subset):
+def get_test_subset(test_sentence_to_label, val_subset, seed_num):
+    random.seed(seed_num)
     if val_subset < len(test_sentence_to_label):
         return {test_sentence: label for test_sentence, label in random.sample(test_sentence_to_label.items(), val_subset)}
     else:
@@ -67,7 +69,7 @@ def generate_triplet_batch(label_to_sentences, train_sentence_to_embedding, devi
 def load_ap_data(cfg):
 
     if cfg.aug_type in {'sr', 'eda'}:
-        return load_ap_data_aug(cfg)
+        return load_ap_data_aug(cfg, cfg.alpha)
     else:
         return load_ap_data_no_aug(cfg)
 
@@ -76,18 +78,19 @@ def load_ap_data_no_aug(cfg):
     train_sentence_to_label, train_label_to_sentences = get_sentence_to_label(cfg.train_path)
     test_sentence_to_label, _ = get_sentence_to_label(cfg.test_path)
 
-    train_sentence_to_encoding = bert_avgpool.get_encoding_dict(train_sentence_to_label, cfg.train_path, cfg.aug_type, None)
+    train_sentence_to_encoding = bert_avgpool.get_encoding_dict(train_sentence_to_label, cfg.train_path, None, None)
     test_sentence_to_encoding = bert_avgpool.get_encoding_dict(test_sentence_to_label, cfg.test_path, None, None)
-    test_sentence_to_label = get_test_subset(test_sentence_to_label, cfg.val_subset)
+    test_sentence_to_label = get_test_subset(test_sentence_to_label, cfg.val_subset, cfg.seed_num)
 
     if cfg.train_nc:
-        train_label_to_sentences = get_train_subset(train_label_to_sentences, cfg.train_nc)
+        train_label_to_sentences = get_train_subset(train_label_to_sentences, cfg.train_nc, cfg.seed_num)
+        print(train_label_to_sentences[0][0])
 
     return train_sentence_to_label, train_label_to_sentences, test_sentence_to_label, train_sentence_to_encoding, test_sentence_to_encoding
 
-def generate_aug_train_sentences(train_sentence_to_label, train_label_to_sentences, cfg):
+def generate_aug_train_sentences(train_sentence_to_label, train_label_to_sentences, cfg, alpha):
 
-    sentence_to_aug_sentences = augmentation.get_augmented_sentences(cfg.aug_type, cfg.train_path, cfg.n_aug, cfg.alpha)
+    sentence_to_aug_sentences = augmentation.get_augmented_sentences(cfg.aug_type, cfg.train_path, cfg.n_aug, alpha)
 
     train_sentence_aug_to_label = {}; train_label_to_sentences_aug = {label: [] for label in train_label_to_sentences}
 
@@ -106,20 +109,21 @@ def generate_aug_train_sentences(train_sentence_to_label, train_label_to_sentenc
         
     return train_sentence_aug_to_label, train_label_to_sentences_aug
 
-def load_ap_data_aug(cfg):
+def load_ap_data_aug(cfg, alpha):
 
     train_sentence_to_label, train_label_to_sentences = get_sentence_to_label(cfg.train_path)
     test_sentence_to_label, _ = get_sentence_to_label(cfg.test_path)
 
-    train_sentence_aug_to_label, train_label_to_sentences_aug = generate_aug_train_sentences(train_sentence_to_label, train_label_to_sentences, cfg)
+    train_sentence_aug_to_label, train_label_to_sentences_aug = generate_aug_train_sentences(train_sentence_to_label, train_label_to_sentences, cfg, alpha)
 
-    train_sentence_to_encoding = bert_avgpool.get_encoding_dict(train_sentence_aug_to_label, cfg.train_path, cfg.aug_type, cfg.alpha)
+    train_sentence_to_encoding = bert_avgpool.get_encoding_dict(train_sentence_aug_to_label, cfg.train_path, cfg.aug_type, alpha)
     test_sentence_to_encoding = bert_avgpool.get_encoding_dict(test_sentence_to_label, cfg.test_path, None, None)
-    test_sentence_to_label = get_test_subset(test_sentence_to_label, cfg.val_subset)
+    test_sentence_to_label = get_test_subset(test_sentence_to_label, cfg.val_subset, cfg.seed_num)
 
     if cfg.train_nc:
-        train_label_to_sentences = get_train_subset(train_label_to_sentences, cfg.train_nc)
-        _, train_label_to_sentences_aug = generate_aug_train_sentences(train_sentence_to_label, train_label_to_sentences, cfg)
+        train_label_to_sentences = get_train_subset(train_label_to_sentences, cfg.train_nc, cfg.seed_num)
+        print(train_label_to_sentences[0][0])
+        _, train_label_to_sentences_aug = generate_aug_train_sentences(train_sentence_to_label, train_label_to_sentences, cfg, alpha)
 
     return train_sentence_aug_to_label, train_label_to_sentences_aug, test_sentence_to_label, train_sentence_to_encoding, test_sentence_to_encoding
 
@@ -127,24 +131,27 @@ def load_ap_data_aug(cfg):
 ########## CL triplet stuff ###########
 #######################################
 
-def load_ap_data_cl_aug(cfg):
+def load_ap_cl_data(cfg, alpha):
 
     train_sentence_to_label, train_label_to_sentences = get_sentence_to_label(cfg.train_path)
     test_sentence_to_label, _ = get_sentence_to_label(cfg.test_path)
 
-    train_sentence_aug_to_label, train_label_to_sentences_aug = generate_aug_train_sentences(train_sentence_to_label, train_label_to_sentences, cfg)
+    train_sentence_aug_to_label, train_label_to_sentences_aug = generate_aug_train_sentences(train_sentence_to_label, train_label_to_sentences, cfg, alpha)
 
-    train_sentence_to_encoding = bert_avgpool.get_encoding_dict(train_sentence_aug_to_label, cfg.train_path, cfg.aug_type, cfg.alpha)
+    train_sentence_to_encoding = bert_avgpool.get_encoding_dict(train_sentence_aug_to_label, cfg.train_path, cfg.aug_type, alpha)
     test_sentence_to_encoding = bert_avgpool.get_encoding_dict(test_sentence_to_label, cfg.test_path, None, None)
-    test_sentence_to_label = get_test_subset(test_sentence_to_label, cfg.val_subset)
+    test_sentence_to_label = get_test_subset(test_sentence_to_label, cfg.val_subset, cfg.seed_num)
 
     if cfg.train_nc:
-        train_label_to_sentences = get_train_subset(train_label_to_sentences, cfg.train_nc)
-        _, train_label_to_sentences_aug = generate_aug_train_sentences(train_sentence_to_label, train_label_to_sentences, cfg)
+        train_label_to_sentences = get_train_subset(train_label_to_sentences, cfg.train_nc, cfg.seed_num)
+        print(train_label_to_sentences[0][0])
+        _, train_label_to_sentences_aug = generate_aug_train_sentences(train_sentence_to_label, train_label_to_sentences, cfg, alpha)
 
     return train_sentence_aug_to_label, train_label_to_sentences, train_label_to_sentences_aug, test_sentence_to_label, train_sentence_to_encoding, test_sentence_to_encoding
 
-def load_ap_cl_data(cfg):
+def reload_ap_cl_data(train_sentence_to_label, train_label_to_sentences, cfg, alpha):
 
-    if cfg.aug_type in {'sr', 'eda'}:
-        return load_ap_data_cl_aug(cfg)
+    train_sentence_to_encoding = bert_avgpool.get_encoding_dict(None, cfg.train_path, cfg.aug_type, alpha)
+    train_sentence_aug_to_label, train_label_to_sentences_aug = generate_aug_train_sentences(train_sentence_to_label, train_label_to_sentences, cfg, alpha)
+
+    return train_sentence_aug_to_label, train_label_to_sentences_aug, train_sentence_to_encoding
