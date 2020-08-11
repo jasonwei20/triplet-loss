@@ -20,7 +20,7 @@ class triplet_ap_config(NamedTuple):
 
     # training params
     train_nc: int = None
-    val_subset: int = 2000
+    val_subset: int = 1000
     total_updates: int = 10000
     eval_interval: int = 100
 

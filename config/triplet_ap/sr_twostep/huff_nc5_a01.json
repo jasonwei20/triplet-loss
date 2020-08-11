@@ -1,5 +1,5 @@
 {
-    "exp_id": "triplet_huff_sr_alpha_nc5_a01",
+    "exp_id": "triplet_huff_sr_twostep_nc5_a01",
     "train_path": "data/huff/train.txt",
     "test_path": "data/huff/test.txt",
     "num_output_classes": 41,
