@@ -12,9 +12,9 @@ if __name__ == "__main__":
         # "config/triplet_ap/rd_twostep/fewrel_nc10_a005.json",
         # "config/triplet_ap/rd_twostep/fewrel_nc10_a01.json",
         # "config/triplet_ap/rd_twostep/huff_nc5_a005.json",
-        "config/triplet_ap/rd_twostep/huff_nc5_a01.json",
+        # "config/triplet_ap/rd_twostep/huff_nc5_a01.json",
         # "config/triplet_ap/rd_twostep/huff_nc10_a005.json",
-        "config/triplet_ap/rd_twostep/huff_nc10_a01.json",
+        # "config/triplet_ap/rd_twostep/huff_nc10_a01.json",
     ]
 
     for cfg_json in cfg_json_list:
