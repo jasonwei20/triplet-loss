@@ -3,15 +3,18 @@ from utils import common, configuration, triplet_methods
 if __name__ == "__main__":
 
     cfg_json_list = [
-        "config/triplet_ap/sr_alpha/covidclu_nc3_a02.json",
-        "config/triplet_ap/sr_alpha/covidclu_nc3_a03.json",
-        "config/triplet_ap/sr_alpha/covidclu_nc3_a04.json",
-        "config/triplet_ap/sr_alpha/huff_nc5_a02.json",
-        "config/triplet_ap/sr_alpha/huff_nc5_a03.json",
-        "config/triplet_ap/sr_alpha/huff_nc5_a04.json",
-        "config/triplet_ap/sr_alpha/fewrel_nc5_a02.json",
-        "config/triplet_ap/sr_alpha/fewrel_nc5_a03.json",
-        "config/triplet_ap/sr_alpha/fewrel_nc5_a04.json",
+        # "config/triplet_ap/sr_alpha/amzn_nc3_a01.json",
+        # "config/triplet_ap/sr_alpha/amzn_nc3_a02.json",
+        # "config/triplet_ap/sr_alpha/covidclu_nc3_a01.json",
+        # "config/triplet_ap/sr_alpha/covidclu_nc3_a02.json",
+        # "config/triplet_ap/sr_alpha/fewrel_nc5_a01.json",
+        # "config/triplet_ap/sr_alpha/fewrel_nc5_a02.json",
+        # "config/triplet_ap/sr_alpha/fewrel_nc10_a01.json",
+        # "config/triplet_ap/sr_alpha/fewrel_nc10_a02.json",
+        # "config/triplet_ap/sr_alpha/huff_nc5_a01.json",
+        # "config/triplet_ap/sr_alpha/huff_nc5_a02.json",
+        # "config/triplet_ap/sr_alpha/huff_nc10_a01.json",
+        # "config/triplet_ap/sr_alpha/huff_nc10_a02.json",
     ]
 
     for cfg_json in cfg_json_list:

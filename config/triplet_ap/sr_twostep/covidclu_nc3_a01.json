@@ -1,5 +1,5 @@
 {
-    "exp_id": "triplet_covidclu_sr_alpha_nc3_a04",
+    "exp_id": "triplet_covidclu_sr_alpha_nc3_a01",
     "train_path": "data/covidclu/train.txt",
     "test_path": "data/covidclu/test.txt",
     "num_output_classes": 87,
@@ -7,6 +7,7 @@
     "total_updates": 15000,
     "n_aug": 4,
     "aug_type": "sr",
-    "alpha": 0.4,
-    "eval_interval": 200
+    "alpha": 0.1,
+    "eval_interval": 200,
+    "first_stage_updates": 4000
 }
