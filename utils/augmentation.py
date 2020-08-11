@@ -194,6 +194,41 @@ def random_deletion(words, p):
 
     return new_words
 
+def get_rd_sentence(sentence, alpha):
+    
+    sentence = get_only_chars(sentence)
+    words = sentence.split(' ')
+    words = [word for word in words if word is not '']
+    num_words = len(words)
+
+    a_words = random_deletion(words, alpha)
+    augmented_sentence = ' '.join(a_words)
+
+    return augmented_sentence
+
+def get_rd_data_dict(pkl_path, train_path, n_aug, alpha):
+    
+    if not pkl_path.exists():
+        
+        print(f"creating {pkl_path}")
+
+        sentences, _ = common.get_sentences_and_labels_from_txt(train_path)
+
+        sentence_to_augmented_sentences = {}
+        for sentence in tqdm(sentences):
+            rd_sentences = [get_rd_sentence(sentence, alpha) for _ in range(n_aug)]
+            sentence_to_augmented_sentences[sentence] = rd_sentences
+
+        common.save_pickle(pkl_path, sentence_to_augmented_sentences)
+    
+    return common.load_pickle(pkl_path)
+
+def get_rd_sentences(train_path, n_aug, alpha):
+
+    pkl_path = Path(train_path).parent.joinpath(f"train_aug_rd_alpha{alpha:.2f}_data.pkl")
+    sentence_to_aug_sentences = get_rd_data_dict(pkl_path, train_path, n_aug, alpha)
+    return sentence_to_aug_sentences
+
 ########################################################################
 # Random swap
 # Randomly swap two words in the sentence n times
@@ -356,3 +391,5 @@ def get_augmented_sentences(aug_type, train_path, n_aug, alpha):
         return get_synonym_replacement_sentences(train_path, n_aug, alpha)
     elif aug_type == "eda":
         return get_eda_sentences(train_path, n_aug, alpha)
+    elif aug_type == "rd":
+        return get_rd_sentences(train_path, n_aug, alpha)
