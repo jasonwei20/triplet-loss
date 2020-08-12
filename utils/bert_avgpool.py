@@ -13,8 +13,10 @@ model = model_class.from_pretrained(pretrained_weights)
 
 def get_encodings_path(original_file_path, aug_type, alpha):
     
-    if aug_type in {'sr', 'eda', 'rd', 'backtrans'}:
+    if aug_type in {'sr', 'eda', 'rd'}:
         encodings_path = Path(original_file_path).parent.joinpath(original_file_path.split('/')[-1].split('.')[0] + f"_encodings_{aug_type}_alpha{alpha:.2f}.pkl")
+    elif aug_type in {'bt'}:
+        encodings_path = Path(original_file_path).parent.joinpath(original_file_path.split('/')[-1].split('.')[0] + f"_encodings_{aug_type}.pkl")
     else:
         encodings_path = Path(original_file_path).parent.joinpath(original_file_path.split('/')[-1].split('.')[0] + '_encodings.pkl')
     return encodings_path

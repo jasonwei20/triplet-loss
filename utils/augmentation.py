@@ -353,33 +353,34 @@ def get_eda_sentences(train_path, n_aug, alpha):
 # backtranslation
 ########################################################################
 
-# def backtrans_string(s):
-#     result = translator.backtranslate(s, src='en', mid='fr')
-#     return get_only_chars(result.text)
+def backtrans_string(s):
+    result_fr = get_only_chars(translator.backtranslate(s, src='en', mid='fr').text)
+    result_cn = get_only_chars(translator.backtranslate(s, src='en', mid='zh-cn').text)
+    result_ar = get_only_chars(translator.backtranslate(s, src='en', mid='ar').text)
+    result_es = get_only_chars(translator.backtranslate(s, src='en', mid='es').text)
+    return [result_fr, result_cn, result_ar, result_es]
 
-# def get_backtrans_data_dict(pkl_path, train_path, n_aug):
-
-#     assert n_aug == 1
+def get_backtrans_data_dict(pkl_path, train_path):
     
-#     if not pkl_path.exists():
+    if not pkl_path.exists():
         
-#         print(f"creating {pkl_path}")
+        print(f"creating {pkl_path}")
 
-#         sentences, _ = common.get_sentences_and_labels_from_txt(train_path)
+        sentences, _ = common.get_sentences_and_labels_from_txt(train_path)
 
-#         sentence_to_augmented_sentences = {}
-#         for sentence in tqdm(sentences):
-#             sentence_to_augmented_sentences[sentence] = [backtrans_string(sentence)]
+        sentence_to_augmented_sentences = {}
+        for sentence in tqdm(sentences):
+            sentence_to_augmented_sentences[sentence] = backtrans_string(sentence)
 
-#         common.save_pickle(pkl_path, sentence_to_augmented_sentences)
+        common.save_pickle(pkl_path, sentence_to_augmented_sentences)
     
-#     return common.load_pickle(pkl_path)
+    return common.load_pickle(pkl_path)
 
-# def get_backtrans_sentences(sentences, cfg):
+def get_bt_sentences(train_path):
 
-#     pkl_path = Path(cfg.train_path).parent.joinpath(f"train_aug_backtrans_data.pkl")
-#     sentence_to_aug_sentence = get_backtrans_data_dict(pkl_path, cfg.train_path)
-#     return [sentence_to_aug_sentence[sentence] for sentence in sentences]
+    pkl_path = Path(train_path).parent.joinpath(f"train_aug_bt_data.pkl")
+    sentence_to_aug_sentence = get_backtrans_data_dict(pkl_path, train_path)
+    return sentence_to_aug_sentence
 
 ########################################################################
 # master augment method that takes in cfg
@@ -393,3 +394,5 @@ def get_augmented_sentences(aug_type, train_path, n_aug, alpha):
         return get_eda_sentences(train_path, n_aug, alpha)
     elif aug_type == "rd":
         return get_rd_sentences(train_path, n_aug, alpha)
+    elif aug_type == "bt":
+        return get_bt_sentences(train_path)
