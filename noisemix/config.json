@@ -1,0 +1,75 @@
+{
+  "KEYBOARD_LAYOUT": "qwerty",
+  "LANGUAGE": "en",
+
+  "SENTENCE_PERTURBATION": {
+    	"MAX_PERTURBATION": 3,
+        "MIN_LEN": 5,
+		"REMOVE_SPACE": {
+			"ENABLED": true,
+			"FREQUENCY": 0.2,
+			"REPEAT_NUM": 1
+		},
+		"FLIP_WORDS": {
+			"ENABLED": true,
+			"FREQUENCY": 0.2,
+			"REPEAT_NUM": 1
+		}
+  },
+	"WORD_PERTURBATION": {
+      "MAX_PERTURBATION": 3,
+       "MIN_LEN": 3,
+		"ADD_LETTER": {
+			"ENABLED": true,
+			"FREQUENCY": 0.2,
+			"REPEAT_NUM": 1
+		},
+		"REPEAT_LETTER": {
+			"ENABLED": true,
+			"FREQUENCY": 0.2,
+			"REPEAT_NUM": 1
+
+		},
+		"REMOVE_LETTER": {
+			"ENABLED": true,
+			"FREQUENCY": 0.2,
+			"REPEAT_NUM": 1
+
+		},
+		"LOWERCASE": {
+			"ENABLED": true,
+			"FREQUENCY": 0.2,
+			"REPEAT_NUM": 1
+
+		},
+		"REMOVE_PUNCT": {
+			"ENABLED": true,
+			"FREQUENCY": 0.2,
+			"REPEAT_NUM": 1
+
+		},
+		"WORD_SWAP": {
+
+			"ENABLED": true,
+			"FREQUENCY": 0.2,
+			"REPEAT_NUM": 1
+		},
+		"CHAR_SWAP": {
+			"ENABLED": true,
+			"FREQUENCY": 0.2,
+			"REPEAT_NUM": 1
+
+		},
+		"FLIP_LETTERS": {
+			"ENABLED": true,
+			"FREQUENCY": 0.2,
+			"REPEAT_NUM": 1
+
+		},
+		"TYPO_QWERTY": {
+			"ENABLED": true,
+			"FREQUENCY": 0.2,
+			"REPEAT_NUM": 1
+		}
+	}
+}

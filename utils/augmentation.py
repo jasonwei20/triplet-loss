@@ -383,6 +383,38 @@ def get_bt_sentences(train_path):
     return sentence_to_aug_sentence
 
 ########################################################################
+# noisemix
+########################################################################
+
+from noisemix import noise
+
+def noisemix_string(s):
+    return [noise.randnoise(s) for _ in range(4)]
+
+def get_noisemix_data_dict(pkl_path, train_path):
+
+    if not pkl_path.exists():
+        
+        print(f"creating {pkl_path}")
+
+        sentences, _ = common.get_sentences_and_labels_from_txt(train_path)
+
+        sentence_to_augmented_sentences = {}
+        for sentence in tqdm(sentences):
+            augmented_sentences = noisemix_string(sentence)
+            sentence_to_augmented_sentences[sentence] = augmented_sentences
+
+        common.save_pickle(pkl_path, sentence_to_augmented_sentences)
+    
+    return common.load_pickle(pkl_path)
+
+def get_nm_sentences(train_path):
+
+    pkl_path = Path(train_path).parent.joinpath(f"train_aug_nm_data.pkl")
+    sentence_to_aug_sentence = get_noisemix_data_dict(pkl_path, train_path)
+    return sentence_to_aug_sentence
+
+########################################################################
 # master augment method that takes in cfg
 ########################################################################
 
@@ -396,3 +428,5 @@ def get_augmented_sentences(aug_type, train_path, n_aug, alpha):
         return get_rd_sentences(train_path, n_aug, alpha)
     elif aug_type == "bt":
         return get_bt_sentences(train_path)
+    elif aug_type == "nm":
+        return get_nm_sentences(train_path)

@@ -1,0 +1,12 @@
+{
+    "exp_id": "triplet_fewrel_nm_alpha_nc10_a01",
+    "train_path": "data/fewrel/train.txt",
+    "test_path": "data/fewrel/test.txt",
+    "num_output_classes": 64,
+    "train_nc": 10,
+    "total_updates": 15000,
+    "n_aug": 4,
+    "aug_type": "nm",
+    "alpha": 0.1,
+    "eval_interval": 300
+}
