@@ -415,6 +415,64 @@ def get_nm_sentences(train_path):
     return sentence_to_aug_sentence
 
 ########################################################################
+# misspellings
+########################################################################
+
+def load_mispellings_dict():
+    file_path = 'data/common-misspellings.txt'
+    mispellings_dict = {}
+    lines = open(file_path, 'r').readlines()
+    for line in lines:
+        parts = line[:-1].split('->')
+        correct_word = parts[1]
+        misspelled_word = parts[0]
+        mispellings_dict[correct_word] = misspelled_word
+    return mispellings_dict
+
+mispellings_dict = load_mispellings_dict()
+
+def get_mispelled_sentence(s):
+    words = s.split(' ')
+    candidates = set([word for word in words if word in mispellings_dict])
+    if len(candidates) == 0:
+        return s
+    else:
+        if random.uniform(0, 1) < len(candidates) / 4:
+            chosen_candidate = random.sample(candidates, 1)[0]
+            aug_words = []
+            for word in words:
+                aug_words.append(mispellings_dict[word] if word == chosen_candidate else word)
+            return ' '.join(aug_words)
+        else:
+            return s
+
+def get_misspelled_sentences(s):
+    return [get_mispelled_sentence(s) for _ in range(4)]
+
+def get_misspelled_data_dict(pkl_path, train_path):
+
+    if not pkl_path.exists():
+        
+        print(f"creating {pkl_path}")
+
+        sentences, _ = common.get_sentences_and_labels_from_txt(train_path)
+
+        sentence_to_augmented_sentences = {}
+        for sentence in tqdm(sentences):
+            augmented_sentences = get_misspelled_sentences(sentence)
+            sentence_to_augmented_sentences[sentence] = augmented_sentences
+
+        common.save_pickle(pkl_path, sentence_to_augmented_sentences)
+    
+    return common.load_pickle(pkl_path)
+
+def get_ms_sentences(train_path):
+
+    pkl_path = Path(train_path).parent.joinpath(f"train_aug_ms_data.pkl")
+    sentence_to_aug_sentence = get_misspelled_data_dict(pkl_path, train_path)
+    return sentence_to_aug_sentence
+
+########################################################################
 # master augment method that takes in cfg
 ########################################################################
 
@@ -430,3 +488,5 @@ def get_augmented_sentences(aug_type, train_path, n_aug, alpha):
         return get_bt_sentences(train_path)
     elif aug_type == "nm":
         return get_nm_sentences(train_path)
+    elif aug_type == "ms":
+        return get_ms_sentences(train_path)
