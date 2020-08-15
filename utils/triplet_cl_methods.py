@@ -19,6 +19,9 @@ def train_eval_cl_model(
     iter_bar = tqdm(range(cfg.total_updates))
     update_num_list = []; train_loss_list = []; val_acc_list = []
 
+    Path(f"plots/{cfg.exp_id}").mkdir(parents=True, exist_ok=True)
+    writer = open(f"plots/{cfg.exp_id}/logs.csv", "w")
+
     for update_num in iter_bar:
 
         #sample differently based on which stage of curriculum learning you're in
@@ -54,8 +57,8 @@ def train_eval_cl_model(
                             )
             iter_bar.set_description(iter_bar_str)
             update_num_list.append(update_num); val_acc_list.append(val_acc); train_loss_list.append(train_loss)
+            writer.write(f"{update_num},{val_acc:.4f},{train_loss:.4f}\n")
 
-    Path(f"plots/{cfg.exp_id}").mkdir(parents=True, exist_ok=True)
     visualization.plot_jasons_lineplot(update_num_list, train_loss_list, 'updates', 'training loss', f"{cfg.exp_id} n_train_c={cfg.train_nc} max_val_acc={max(val_acc_list):.3f}", f"plots/{cfg.exp_id}/train_loss.png")    
     visualization.plot_jasons_lineplot(update_num_list, val_acc_list, 'updates', 'validation accuracy', f"{cfg.exp_id} n_train_c={cfg.train_nc} max_val_acc={max(val_acc_list):.3f}", f"plots/{cfg.exp_id}/val_acc{max(val_acc_list):.3f}.png")    
     # # torch.save(model.state_dict(), 'triplet/models/baseline_covid_weights.pt')
