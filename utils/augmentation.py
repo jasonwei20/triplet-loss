@@ -473,6 +473,55 @@ def get_ms_sentences(train_path):
     return sentence_to_aug_sentence
 
 ########################################################################
+# switchout
+########################################################################
+
+def load_all_words(sentences):
+    all_words = set()
+    for sentence in sentences:
+        words = sentence.split(' ')
+        for word in words:
+            all_words.add(word)
+    return all_words
+
+def get_switchout_sentence(s, alpha, all_words):
+    words = s.split(' ')
+    aug_words = []
+    for word in words:
+        if random.uniform(0, 1) < alpha:
+            aug_words.append(random.sample(all_words, 1)[0])
+        else:
+            aug_words.append(word)
+    return ' '.join(aug_words)
+
+def get_switchout_sentences(s, n_aug, alpha, all_words):
+    return [get_switchout_sentence(s, alpha, all_words) for _ in range(n_aug)]
+
+def get_switchout_data_dict(pkl_path, train_path, n_aug, alpha):
+
+    if not pkl_path.exists():
+        
+        print(f"creating {pkl_path}")
+
+        sentences, _ = common.get_sentences_and_labels_from_txt(train_path)
+        all_words = load_all_words(sentences)
+
+        sentence_to_augmented_sentences = {}
+        for sentence in tqdm(sentences):
+            augmented_sentences = get_switchout_sentences(sentence, n_aug, alpha, all_words)
+            sentence_to_augmented_sentences[sentence] = augmented_sentences
+
+        common.save_pickle(pkl_path, sentence_to_augmented_sentences)
+    
+    return common.load_pickle(pkl_path)
+
+def get_so_sentences(train_path, n_aug, alpha):
+
+    pkl_path = Path(train_path).parent.joinpath(f"train_aug_so_data.pkl")
+    sentence_to_aug_sentence = get_switchout_data_dict(pkl_path, train_path, n_aug, alpha)
+    return sentence_to_aug_sentence
+
+########################################################################
 # master augment method that takes in cfg
 ########################################################################
 
@@ -490,3 +539,5 @@ def get_augmented_sentences(aug_type, train_path, n_aug, alpha):
         return get_nm_sentences(train_path)
     elif aug_type == "ms":
         return get_ms_sentences(train_path)
+    elif aug_type == "so":
+        return get_so_sentences(train_path, n_aug, alpha)
