@@ -17,6 +17,7 @@ if __name__ == "__main__":
         # "config/triplet_ap/cl_gradual/fewrel_nc10_b.json",
         # "config/triplet_ap/cl_gradual/amzn_nc3_a.json",
         # "config/triplet_ap/cl_gradual/amzn_nc3_b.json",
+        "config/triplet_ap/cl_gradual/amzn_nc3_b2.json",
         # "config/triplet_ap/cl_gradual/amzn_nc3_c.json",
     ]
 

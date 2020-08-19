@@ -34,7 +34,7 @@ def train_eval_cl_model(
         model.zero_grad()
 
         logits = model(anchor, pos, neg)
-        train_loss = loss_fn(*logits)
+        train_loss, _ = loss_fn(*logits)
 
         train_loss.backward()
         optimizer.step()
@@ -99,7 +99,7 @@ def train_eval_cl_gradual_model(
         model.zero_grad()
 
         logits = model(anchor, pos, neg)
-        train_loss = loss_fn(*logits)
+        train_loss, _ = loss_fn(*logits)
 
         train_loss.backward()
         optimizer.step()
