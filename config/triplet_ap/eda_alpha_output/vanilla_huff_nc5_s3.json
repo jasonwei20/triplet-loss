@@ -4,7 +4,7 @@
     "test_path": "data/huff/test.txt",
     "num_output_classes": 41,
     "train_nc": 5,
-    "total_updates": 15000,
+    "total_updates": 25000,
     "eval_interval": 300,
     "seed_num": 3
 }
