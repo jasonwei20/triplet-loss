@@ -5,10 +5,10 @@ if __name__ == "__main__":
     cfg_json_list = [
         # "config/triplet_ap/eda_mine_alpha/amzn_nc3_a02.json",
         # "config/triplet_ap/eda_mine_alpha/covidclu_nc3_a02.json",
-        "config/triplet_ap/eda_mine_alpha/fewrel_nc5_a02.json",
-        "config/triplet_ap/eda_mine_alpha/fewrel_nc10_a02.json",
-        "config/triplet_ap/eda_mine_alpha/huff_nc5_a02.json",
-        "config/triplet_ap/eda_mine_alpha/huff_nc10_a02.json",
+        # "config/triplet_ap/eda_mine_alpha/fewrel_nc5_a02.json",
+        # "config/triplet_ap/eda_mine_alpha/fewrel_nc10_a02.json",
+        # "config/triplet_ap/eda_mine_alpha/huff_nc5_a02.json",
+        # "config/triplet_ap/eda_mine_alpha/huff_nc10_a02.json",
     ]
 
     for cfg_json in cfg_json_list:
