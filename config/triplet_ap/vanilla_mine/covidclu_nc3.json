@@ -1,0 +1,9 @@
+{
+    "exp_id": "triplet_covidclu_vanillamine_nc3",
+    "train_path": "data/covidclu/train.txt",
+    "test_path": "data/covidclu/test.txt",
+    "num_output_classes": 87,
+    "train_nc": 3,
+    "total_updates": 15000,
+    "hard_negative_mining": "semi-hard"
+}

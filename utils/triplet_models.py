@@ -8,13 +8,14 @@ class TripletLoss(nn.Module):
     Takes embeddings of an anchor sample, a positive sample and a negative sample
     """
 
-    def __init__(self, margin=0.4,distance_type="C"):
+    def __init__(self, margin=0.4, distance_type="C", account_for_nonzeros=False):
         super(TripletLoss, self).__init__()
         self.margin = margin
         self.distance_type=distance_type.lower().strip()
         self.cos = nn.CosineSimilarity(dim=1, eps=1e-6)
+        self.account_for_nonzeros = account_for_nonzeros
 
-    def forward(self, anchor, positive, negative, size_average=True):
+    def forward(self, anchor, positive, negative):
         
         if self.distance_type == "c":
             ## cosine distance 
@@ -29,9 +30,16 @@ class TripletLoss(nn.Module):
             distance_negative = (anchor - negative).pow(2).sum(1)  # .pow(.5)
             losses = F.relu(distance_positive - distance_negative + self.margin)
         else:
-            raise Exception('please specify distance_tpye as C or E')
-            
-        return losses.mean() if size_average else losses.sum()
+            raise Exception('please specify distance_type as C or E')
+
+        semi_hard_indexes = [i for i in range(len(losses)) if losses[i] > 0]
+        percent_activated = len(semi_hard_indexes) / len(losses)
+        if self.account_for_nonzeros:
+            loss = losses.sum() / len(semi_hard_indexes)
+        else:
+            loss = losses.mean()
+
+        return loss, percent_activated
 
 
 class EmbeddingNet(nn.Module):

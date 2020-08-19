@@ -1,5 +1,5 @@
 {
-    "exp_id": "triplet_huff_so_alpha_nc10_a01",
+    "exp_id": "triplet_huff_so_twostep_nc10_a01",
     "train_path": "data/huff/train.txt",
     "test_path": "data/huff/test.txt",
     "num_output_classes": 41,
@@ -8,5 +8,6 @@
     "n_aug": 4,
     "aug_type": "so",
     "alpha": 0.1,
-    "eval_interval": 300
+    "eval_interval": 300,
+    "first_stage_updates": 4000
 }

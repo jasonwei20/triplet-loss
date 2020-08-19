@@ -23,6 +23,7 @@ class triplet_ap_config(NamedTuple):
     val_subset: int = 1000
     total_updates: int = 10000
     eval_interval: int = 100
+    hard_negative_mining: str = None
 
     # augmentation params
     n_aug: int = None

@@ -1,0 +1,10 @@
+{
+    "exp_id": "triplet_fewrel_vanillamine_nc5",
+    "train_path": "data/fewrel/train.txt",
+    "test_path": "data/fewrel/test.txt",
+    "num_output_classes": 64,
+    "train_nc": 5,
+    "total_updates": 15000,
+    "eval_interval": 300,
+    "hard_negative_mining": "semi-hard"
+}
