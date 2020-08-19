@@ -1,0 +1,13 @@
+{
+    "exp_id": "triplet_huff_eda_mine_alpha_nc5_a02",
+    "train_path": "data/huff/train.txt",
+    "test_path": "data/huff/test.txt",
+    "num_output_classes": 41,
+    "train_nc": 5,
+    "total_updates": 15000,
+    "n_aug": 4,
+    "aug_type": "eda",
+    "alpha": 0.2,
+    "eval_interval": 300,
+    "hard_negative_mining": "semi-hard"
+}

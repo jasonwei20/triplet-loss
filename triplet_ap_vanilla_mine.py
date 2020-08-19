@@ -5,10 +5,10 @@ if __name__ == "__main__":
     cfg_json_list = [
         # "config/triplet_ap/vanilla_mine/amzn_nc3.json",
         # "config/triplet_ap/vanilla_mine/covidclu_nc3.json",
-        "config/triplet_ap/vanilla_mine/fewrel_nc5.json",
-        "config/triplet_ap/vanilla_mine/huff_nc5.json",
-        "config/triplet_ap/vanilla_mine/fewrel_nc10.json",
-        "config/triplet_ap/vanilla_mine/huff_nc10.json",
+        # "config/triplet_ap/vanilla_mine/fewrel_nc5.json",
+        # "config/triplet_ap/vanilla_mine/huff_nc5.json",
+        # "config/triplet_ap/vanilla_mine/fewrel_nc10.json",
+        # "config/triplet_ap/vanilla_mine/huff_nc10.json",
     ]
 
     for cfg_json in cfg_json_list:
