@@ -9,7 +9,7 @@ if __name__ == "__main__":
         # "config/triplet_ap/vanilla/fewrel_nc10.json",
         # "config/triplet_ap/vanilla/huff_nc5.json",
         # "config/triplet_ap/vanilla/huff_nc10.json",
-        "config/triplet_ap/vanilla/amzn_nc3.json",
+        # "config/triplet_ap/vanilla/amzn_nc3.json",
     ]
 
     for cfg_json in cfg_json_list:

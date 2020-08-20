@@ -1,10 +1,10 @@
 {
-    "exp_id": "triplet_fewrel_cl_gradual_nc5_b",
+    "exp_id": "triplet_fewrel_eda_mine_gradual_nc5_b",
     "train_path": "data/fewrel/train.txt",
     "test_path": "data/fewrel/test.txt",
     "num_output_classes": 64,
     "train_nc": 5,
-    "total_updates": 40000,
+    "total_updates": 36000,
     "n_aug": 4,
     "aug_type": "eda",
     "second_stage_alpha": 0.1,
@@ -13,9 +13,10 @@
     "fifth_stage_alpha": 0.4,
     "sixth_stage_alpha": 0.5,
     "eval_interval": 200,
-    "first_stage_updates": 10000,
-    "second_stage_updates": 16000,
-    "third_stage_updates": 22000,
-    "fourth_stage_updates": 28000,
-    "fifth_stage_updates": 34000
+    "first_stage_updates": 6000,
+    "second_stage_updates": 12000,
+    "third_stage_updates": 18000,
+    "fourth_stage_updates": 24000,
+    "fifth_stage_updates": 30000,
+    "hard_negative_mining": "semi-hard"
 }

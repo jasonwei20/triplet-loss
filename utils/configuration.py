@@ -108,6 +108,7 @@ class triplet_ap_cl_gradual_config(NamedTuple):
     third_stage_updates: int = None
     fourth_stage_updates: int = None
     fifth_stage_updates: int = None
+    hard_negative_mining: str = None
 
     @classmethod
     def from_json(cls, file_path):
