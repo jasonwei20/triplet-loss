@@ -1,0 +1,11 @@
+{
+    "exp_id": "triplet_amzn_vanillamine_nc3_s2",
+    "train_path": "data/amzn/train.txt",
+    "test_path": "data/amzn/test.txt",
+    "num_output_classes": 318,
+    "train_nc": 3,
+    "total_updates": 25000,
+    "eval_interval": 200,
+    "hard_negative_mining": "semi-hard",
+    "seed_num": 2
+}

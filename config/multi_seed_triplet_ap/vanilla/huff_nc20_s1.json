@@ -1,0 +1,10 @@
+{
+    "exp_id": "triplet_huff_vanilla_nc20_s1",
+    "train_path": "data/huff/train.txt",
+    "test_path": "data/huff/test.txt",
+    "num_output_classes": 41,
+    "train_nc": 20,
+    "total_updates": 15000,
+    "eval_interval": 300,
+    "seed_num": 1
+}

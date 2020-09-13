@@ -19,8 +19,8 @@ def train_eval_cl_model(
     iter_bar = tqdm(range(cfg.total_updates))
     update_num_list = []; train_loss_list = []; val_acc_list = []
 
-    Path(f"plots/{cfg.exp_id}").mkdir(parents=True, exist_ok=True)
-    writer = open(f"plots/{cfg.exp_id}/logs.csv", "w")
+    Path(f"plots{cfg.seed_num}/{cfg.exp_id}").mkdir(parents=True, exist_ok=True)
+    writer = open(f"plots{cfg.seed_num}/{cfg.exp_id}/logs.csv", "w")
     mb_size = 64
     target_activated_examples = 64
     avg_percent_activated = 1.0
@@ -70,8 +70,8 @@ def train_eval_cl_model(
             if cfg.hard_negative_mining == 'semi-hard':
                 mb_size = min(int(target_activated_examples / avg_percent_activated), 2000)
 
-    visualization.plot_jasons_lineplot(update_num_list, train_loss_list, 'updates', 'training loss', f"{cfg.exp_id} n_train_c={cfg.train_nc} max_val_acc={max(val_acc_list):.3f}", f"plots/{cfg.exp_id}/train_loss.png")    
-    visualization.plot_jasons_lineplot(update_num_list, val_acc_list, 'updates', 'validation accuracy', f"{cfg.exp_id} n_train_c={cfg.train_nc} max_val_acc={max(val_acc_list):.3f}", f"plots/{cfg.exp_id}/val_acc{max(val_acc_list):.3f}.png")    
+    visualization.plot_jasons_lineplot(update_num_list, train_loss_list, 'updates', 'training loss', f"{cfg.exp_id} n_train_c={cfg.train_nc} max_val_acc={max(val_acc_list):.3f}", f"plots{cfg.seed_num}/{cfg.exp_id}/train_loss.png")    
+    visualization.plot_jasons_lineplot(update_num_list, val_acc_list, 'updates', 'validation accuracy', f"{cfg.exp_id} n_train_c={cfg.train_nc} max_val_acc={max(val_acc_list):.3f}", f"plots{cfg.seed_num}/{cfg.exp_id}/val_acc{max(val_acc_list):.3f}.png")    
     # # torch.save(model.state_dict(), 'triplet/models/baseline_covid_weights.pt')
 
 def train_eval_cl_gradual_model(
@@ -79,7 +79,7 @@ def train_eval_cl_gradual_model(
 ):
 
     #load data
-    train_sentence_to_label, train_label_to_sentences_orig, test_sentence_to_label, train_sentence_to_encoding, test_sentence_to_encoding = dataloader.load_ap_data_no_aug(cfg)
+    train_sentence_to_label, train_label_to_sentences_orig, _, test_sentence_to_label, train_sentence_to_encoding, test_sentence_to_encoding = dataloader.load_ap_data_no_aug(cfg)
     train_label_to_sentences_aug = train_label_to_sentences_orig.copy()
 
     # initialize model
@@ -88,6 +88,9 @@ def train_eval_cl_gradual_model(
     # train the model
     iter_bar = tqdm(range(cfg.total_updates))
     update_num_list = []; train_loss_list = []; val_acc_list = []
+
+    Path(f"plots/{cfg.exp_id}").mkdir(parents=True, exist_ok=True)
+    writer = open(f"plots/{cfg.exp_id}/logs.csv", "w")
     
     mb_size = 64
     target_activated_examples = 64
@@ -127,7 +130,7 @@ def train_eval_cl_gradual_model(
                 model, 
                 device, 
                 train_sentence_to_label, 
-                train_label_to_sentences_aug, 
+                train_label_to_sentences_orig, 
                 train_sentence_to_encoding, 
                 test_sentence_to_label, 
                 test_sentence_to_encoding,
@@ -142,11 +145,12 @@ def train_eval_cl_gradual_model(
                             )
             iter_bar.set_description(iter_bar_str)
             update_num_list.append(update_num); val_acc_list.append(val_acc); train_loss_list.append(train_loss)
+            writer.write(f"{update_num},{val_acc:.4f},{train_loss:.4f}\n")
             percent_activated_list = []
             if cfg.hard_negative_mining == 'semi-hard':
                 mb_size = min(int(target_activated_examples / avg_percent_activated), 2000)
 
-    Path(f"plots/{cfg.exp_id}").mkdir(parents=True, exist_ok=True)
-    visualization.plot_jasons_lineplot(update_num_list, train_loss_list, 'updates', 'training loss', f"{cfg.exp_id} n_train_c={cfg.train_nc} max_val_acc={max(val_acc_list):.3f}", f"plots/{cfg.exp_id}/train_loss.png")    
-    visualization.plot_jasons_lineplot(update_num_list, val_acc_list, 'updates', 'validation accuracy', f"{cfg.exp_id} n_train_c={cfg.train_nc} max_val_acc={max(val_acc_list):.3f}", f"plots/{cfg.exp_id}/val_acc{max(val_acc_list):.3f}.png")    
+    Path(f"plots{cfg.seed_num}/{cfg.exp_id}").mkdir(parents=True, exist_ok=True)
+    visualization.plot_jasons_lineplot(update_num_list, train_loss_list, 'updates', 'training loss', f"{cfg.exp_id} n_train_c={cfg.train_nc} max_val_acc={max(val_acc_list):.3f}", f"plots{cfg.seed_num}/{cfg.exp_id}/train_loss.png")    
+    visualization.plot_jasons_lineplot(update_num_list, val_acc_list, 'updates', 'validation accuracy', f"{cfg.exp_id} n_train_c={cfg.train_nc} max_val_acc={max(val_acc_list):.3f}", f"plots{cfg.seed_num}/{cfg.exp_id}/val_acc{max(val_acc_list):.3f}.png")    
     # torch.save(model.state_dict(), 'triplet/models/baseline_covid_weights.pt')

@@ -1,0 +1,11 @@
+{
+    "exp_id": "triplet_huff_vanillamine_nc10_s2",
+    "train_path": "data/huff/train.txt",
+    "test_path": "data/huff/test.txt",
+    "num_output_classes": 41,
+    "train_nc": 10,
+    "total_updates": 15000,
+    "eval_interval": 300,
+    "hard_negative_mining": "semi-hard",
+    "seed_num": 2
+}

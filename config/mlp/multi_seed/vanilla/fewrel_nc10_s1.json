@@ -1,0 +1,11 @@
+{
+    "exp_id": "mlp_fewrel_vanilla_nc10_s1",
+    "train_path": "data/fewrel/train.txt",
+    "test_path": "data/fewrel/test.txt",
+    "num_output_classes": 64,
+    "train_nc": 10,
+    "num_epochs": 300,
+    "minibatch_size": 256,
+    "model": "LR",
+    "seed_num": 1
+}

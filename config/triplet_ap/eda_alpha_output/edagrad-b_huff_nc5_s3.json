@@ -1,0 +1,22 @@
+{
+    "exp_id": "triplet_huff_eda_gradual-b_nc5_a_s3",
+    "train_path": "data/huff/train.txt",
+    "test_path": "data/huff/test.txt",
+    "num_output_classes": 41,
+    "train_nc": 5,
+    "total_updates": 25000,
+    "n_aug": 4,
+    "aug_type": "eda",
+    "second_stage_alpha": 0.1,
+    "third_stage_alpha": 0.2,
+    "fourth_stage_alpha": 0.3,
+    "fifth_stage_alpha": 0.4,
+    "sixth_stage_alpha": 0.5,
+    "eval_interval": 300,
+    "first_stage_updates": 4000,
+    "second_stage_updates": 8000,
+    "third_stage_updates": 12000,
+    "fourth_stage_updates": 16000,
+    "fifth_stage_updates": 20000,
+    "seed_num": 3
+}

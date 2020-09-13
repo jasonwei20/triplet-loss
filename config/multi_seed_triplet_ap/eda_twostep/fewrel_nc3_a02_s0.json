@@ -1,0 +1,14 @@
+{
+    "exp_id": "triplet_fewrel_cl_twostep_nc3_a02_s0",
+    "train_path": "data/fewrel/train.txt",
+    "test_path": "data/fewrel/test.txt",
+    "num_output_classes": 64,
+    "train_nc": 3,
+    "total_updates": 15000,
+    "n_aug": 4,
+    "aug_type": "eda",
+    "alpha": 0.2,
+    "eval_interval": 300,
+    "first_stage_updates": 6000,
+    "seed_num": 0
+}

@@ -142,6 +142,7 @@ class mlp_ap_config(NamedTuple):
     # augmentation params
     n_aug: int = None
     aug_type: str = None #sr, eda
+    alpha: int = 0.1
 
     @classmethod
     def from_json(cls, file_path):

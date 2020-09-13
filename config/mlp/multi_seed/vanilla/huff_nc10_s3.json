@@ -1,0 +1,11 @@
+{
+    "exp_id": "mlp_huff_vanilla_nc10_s3",
+    "train_path": "data/huff/train.txt",
+    "test_path": "data/huff/test.txt",
+    "num_output_classes": 41,
+    "train_nc": 10,
+    "num_epochs": 300,
+    "minibatch_size": 256,
+    "model": "LR",
+    "seed_num": 3
+}

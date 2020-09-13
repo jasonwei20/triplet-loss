@@ -1,0 +1,11 @@
+{
+    "exp_id": "mlp_amzn_vanilla_nc3_s4",
+    "train_path": "data/amzn/train.txt",
+    "test_path": "data/amzn/test.txt",
+    "num_output_classes": 318,
+    "train_nc": 3,
+    "num_epochs": 150,
+    "minibatch_size": 512,
+    "model": "LR",
+    "seed_num": 4
+}

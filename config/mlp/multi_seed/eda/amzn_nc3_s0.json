@@ -1,0 +1,12 @@
+{
+    "exp_id": "mlp_amzn_eda_nc3_s0",
+    "train_path": "data/amzn/train.txt",
+    "test_path": "data/amzn/test.txt",
+    "num_output_classes": 318,
+    "train_nc": 3,
+    "num_epochs": 150,
+    "minibatch_size": 512,
+    "model": "LR",
+    "aug_type": "eda",
+    "seed_num": 0
+}

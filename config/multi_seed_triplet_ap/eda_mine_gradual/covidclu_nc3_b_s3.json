@@ -1,0 +1,23 @@
+{
+    "exp_id": "triplet_covidclu_eda_mine_gradual_nc3_b_s3",
+    "train_path": "data/covidclu/train.txt",
+    "test_path": "data/covidclu/test.txt",
+    "num_output_classes": 87,
+    "train_nc": 3,
+    "total_updates": 24000,
+    "n_aug": 4,
+    "aug_type": "eda",
+    "second_stage_alpha": 0.1,
+    "third_stage_alpha": 0.2,
+    "fourth_stage_alpha": 0.3,
+    "fifth_stage_alpha": 0.4,
+    "sixth_stage_alpha": 0.5,
+    "eval_interval": 200,
+    "first_stage_updates": 6000,
+    "second_stage_updates": 10000,
+    "third_stage_updates": 14000,
+    "fourth_stage_updates": 17000,
+    "fifth_stage_updates": 20000,
+    "hard_negative_mining": "semi-hard",
+    "seed_num": 3
+}

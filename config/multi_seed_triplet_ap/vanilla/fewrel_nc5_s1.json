@@ -1,0 +1,10 @@
+{
+    "exp_id": "triplet_fewrel_vanilla_nc5_s1",
+    "train_path": "data/fewrel/train.txt",
+    "test_path": "data/fewrel/test.txt",
+    "num_output_classes": 64,
+    "train_nc": 5,
+    "total_updates": 15000,
+    "eval_interval": 300,
+    "seed_num": 1
+}

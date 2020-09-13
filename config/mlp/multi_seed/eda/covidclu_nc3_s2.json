@@ -1,0 +1,12 @@
+{
+    "exp_id": "mlp_covidclu_eda_nc3_s2",
+    "train_path": "data/covidclu/train.txt",
+    "test_path": "data/covidclu/test.txt",
+    "num_output_classes": 87,
+    "train_nc": 3,
+    "num_epochs": 150,
+    "minibatch_size": 256,
+    "model": "LR",
+    "aug_type": "eda",
+    "seed_num": 2
+}
