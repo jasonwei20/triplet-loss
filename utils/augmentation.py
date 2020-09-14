@@ -429,7 +429,7 @@ def load_mispellings_dict():
         mispellings_dict[correct_word] = misspelled_word
     return mispellings_dict
 
-mispellings_dict = load_mispellings_dict()
+# mispellings_dict = load_mispellings_dict()
 
 def get_mispelled_sentence(s):
     words = s.split(' ')
